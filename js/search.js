@@ -7,7 +7,7 @@ const productsContainer = getElement(".products")
 const tabButtons = getElement(".filters__row--tabs")
 
 let activeFilter = null
-let searchQuery = null
+let searchQuery = ""
 
 let products = [
   {
