@@ -103,9 +103,6 @@ const showSearchedProduct = products => {
 }
 
 const searchAndFilterHandler = event => {
-  console.log(`search query : ${searchQuery}`)
-  console.log(`active filter : ${activeFilter}`)
-
   const filteredProducts = products.filter(({ productName, categories }) => {
     const matchesSearch = productName.toLowerCase().includes(searchQuery)
     const matchesFilter = !activeFilter || categories.includes(activeFilter)
