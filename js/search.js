@@ -7,6 +7,7 @@ const productsContainer = getElement(".products")
 const tabButtons = getElement(".filters__row--tabs")
 
 let activeFilter = null
+let searchQuery = null
 
 let products = [
   {
@@ -102,23 +103,20 @@ const showSearchedProduct = products => {
 }
 
 const searchAndFilterHandler = event => {
-  let filteredProduct = [...products]
+  console.log(`search query : ${searchQuery}`)
+  console.log(`active filter : ${activeFilter}`)
 
-  const searchInputValue = searchInput.value.trim().toLowerCase()
-  console.log(searchInputValue)
-  if (searchInputValue) {
-    filteredProduct = filteredProduct.filter(product => product["productName"].toLowerCase().includes(searchInputValue))
-  }
+  const filteredProducts = products.filter(({ productName, categories }) => {
+    const matchesSearch = productName.toLowerCase().includes(searchQuery)
+    const matchesFilter = !activeFilter || categories.includes(activeFilter)
+    return matchesSearch && matchesFilter
+  })
 
-  // filter with data-filter ="" -> all
-  if (activeFilter) {
-    filteredProduct = filteredProduct.filter(product => product["categories"].includes(activeFilter))
-  }
-
-  showSearchedProduct(filteredProduct)
+  showSearchedProduct(filteredProducts)
 }
 
 const searchHandler = event => {
+  searchQuery = searchInput.value.trim().toLowerCase()
   searchAndFilterHandler()
 }
 
